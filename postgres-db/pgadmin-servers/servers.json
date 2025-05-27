@@ -1,0 +1,16 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "SetTheory Local Dev Postgres",
+            "Group": "SetTheory",
+            "Port": 5432,
+            "Username": "postgres",
+            "Host": "settheory-db-local",
+            "MaintenanceDB": "postgres",
+            "ConnectionParameters": {
+                "sslmode": "prefer",
+                "connect_timeout": 10
+            }
+        }
+    }
+}

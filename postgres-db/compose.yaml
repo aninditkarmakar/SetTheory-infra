@@ -20,17 +20,25 @@ services:
     environment:
       POSTGRES_PASSWORD: setTheoryLocal123! ## ONLY FOR LOCAL DEVELOPMENT
 
-  settheory_adminer:
-    image: adminer
+  settheory_pgadmin:
+    image: dpage/pgadmin4
     depends_on:
       settheory_db:
         condition: service_healthy
         restart: true
     networks:
       - settheory_local_network
-    hostname: settheory-adminer-local
+    hostname: settheory-pgadmin-local
     ports:
-      - 8942:8080
+      - 8942:80
+    environment:
+      - PGADMIN_SERVER_JSON_FILE=/pgadmin4-servers/servers.json
+      - PGADMIN_DISABLE_POSTFIX=1
+      - PGADMIN_DEFAULT_EMAIL=settheory@local.dev
+      - PGADMIN_DEFAULT_PASSWORD=setTheoryLocal123! ## ONLY FOR LOCAL DEVELOPMENT
+    volumes:
+      - './pgadmin-servers:/pgadmin4-servers:ro' # read-only bind mount for server list
+
 networks:
   settheory_local_network:
     name: settheory_local_network
