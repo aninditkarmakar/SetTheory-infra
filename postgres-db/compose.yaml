@@ -1,6 +1,7 @@
 name: settheory_local_db
 volumes:
   SetTheory-db-data:
+  SetTheory-pgadmin-data:
 
 services:
   settheory_db:
@@ -37,7 +38,8 @@ services:
       - PGADMIN_DEFAULT_EMAIL=settheory@local.dev
       - PGADMIN_DEFAULT_PASSWORD=setTheoryLocal123! ## ONLY FOR LOCAL DEVELOPMENT
     volumes:
-      - './pgadmin-servers:/pgadmin4-servers:ro' # read-only bind mount for server list
+      - './pgadmin:/pgadmin4-servers:ro' # read-only bind mount for server list
+      - 'SetTheory-pgadmin-data:/var/lib/pgadmin' # persistent storage for pgAdmin data
 
 networks:
   settheory_local_network:
