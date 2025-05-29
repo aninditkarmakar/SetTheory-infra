@@ -1,5 +1,6 @@
-# SetTheory-containers-dev
-Docker containers for the supporting infrastructure for local full-stack development of the SetTheory WebApp and API
+# SetTheory-infra
+Docker containers for the supporting infrastructure for local full-stack development of the SetTheory WebApp and API.
+Also contains db migration scripts.
 
 ## Postgres Database
 To spin up the local instance of the PostgreSQL database along with pgAdmin for a web-based management portal, run
