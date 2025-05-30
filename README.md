@@ -31,3 +31,17 @@ docker run --rm --network settheory_local_network -v './pg-changelog:/liquibase/
 
 # To rollback update up to a specific tag
 docker run --rm --network settheory_local_network -v './pg-changelog:/liquibase/changelog' -v './liquibase.properties:/liquibase/liquibase.docker.properties' liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties rollback --tag=_epoch
+```
+
+## Troubleshooting
+### `docker compose up` says "network could not be found"
+You see the message below and the containers do not start up.
+```
+network settheory_local_network declared as external, but could not be found
+```
+You are probably trying to run the containers in this repo without ever having run the devcontainer for the SetTheory-webapp project which creates a docker network for all containers to communicate on for local development. To get past this error, run the command:
+
+```bash
+docker network create settheory_local_network --attachable
+```
+
