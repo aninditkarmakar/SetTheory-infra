@@ -1,10 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>	
-<databaseChangeLog
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-    xmlns:pro="http://www.liquibase.org/xml/ns/pro"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
@@ -12,31 +7,59 @@
         http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
 
     <changeSet id="1" author="anindit">
-        <tagDatabase  tag="_epoch"/>
+        <tagDatabase tag="_epoch" />
     </changeSet>
 
-    <changeSet  id="2"  author="anindit">  
-        <createTable  tableName="person">  
-            <column  name="id"  type="int"  autoIncrement="true">  
-                <constraints  primaryKey="true"  nullable="false"/>  
-            </column>  
-            <column  name="firstname"  type="varchar(50)"/>  
-            <column  name="lastname"  type="varchar(50)">  
-                <constraints  nullable="false"/>  
-            </column>  
-            <column  name="state"  type="char(2)"/>  
-        </createTable>  
-    </changeSet>  
+    <changeSet id="2" author="anindit">
+        <createTable tableName="Identity">
+            <column name="UserId" type="uuid">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
 
-    <changeSet  id="3"  author="anindit">  
-        <addColumn  tableName="person">  
-            <column  name="username"  type="varchar(8)"/>  
-        </addColumn>  
-    </changeSet>  
-    <changeSet  id="4"  author="anindit">  
-        <addLookupTable  
-            existingTableName="person"  existingColumnName="state"  
-            newTableName="state"  newColumnName="id"  newColumnDataType="char(2)"/>  
-    </changeSet>  
+            <column name="ProviderId" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="AuthProvider" type="smallint">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="anindit" id="3">
+        <createTable tableName="User">
+            <column name="Id" type="uuid">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+
+            <column name="FirstName" type="varchar(30)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="LastName" type="varchar(50)" />
+
+            <column name="Email" type="varchar(50)" />
+
+            <column name="DateOfBirth" type="date" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4" author="anindit">
+        <addForeignKeyConstraint baseTableName="Identity" baseColumnNames="UserId" constraintName="Fk_Identity_User_UserId" referencedTableName="User" referencedColumnNames="Id" onDelete="CASCADE" />
+    </changeSet>
+
+    <changeSet author="anindit" id="5">
+        <createIndex indexName="Idx_User_Email" tableName="User">
+            <column name="Email" />
+        </createIndex>
+    </changeSet>
+
+
+    <changeSet author="anindit" id="6">
+        <createIndex indexName="Idx_Identity_ProviderId_UserId" tableName="Identity">
+            <column name="ProviderId" />
+            <column name="UserId" />
+        </createIndex>
+    </changeSet>
 
 </databaseChangeLog>

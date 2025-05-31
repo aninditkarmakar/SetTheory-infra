@@ -25,6 +25,24 @@ To log in, enter -
 ## Liquibase
 Run these commands from the `liquibase` directory.
 
+**Windows**
+
+Check your PowerShell version by outputting the `$PSVersionTable` variable. If you are running PowerShell > 7.3, then you need to run the following command first in the Terminal session:
+```PowerShell
+$PSNativeCommandArgumentPassing = 'legacy'
+```
+
+And then run the necessary liquibase commands
+```PowerShell
+# To apply changelog updates
+docker run --rm --network settheory_local_network --mount type=bind,source="$(pwd)"/pg-changelog,target=/liquibase/changelog --mount type=bind,source="$(pwd)"/liquibase.properties,target=/liquibase/liquibase.docker.properties liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties update
+
+# To rollback update up to a specific tag
+docker run --rm --network settheory_local_network --mount type=bind,source="$(pwd)"/pg-changelog,target=/liquibase/changelog --mount type=bind,source="$(pwd)"/liquibase.properties,target=/liquibase/liquibase.docker.properties liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties rollback --tag=_epoch
+```
+
+**Linux / MacOS**
+
 ```bash
 # To apply changelog updates
 docker run --rm --network settheory_local_network -v './pg-changelog:/liquibase/changelog' -v './liquibase.properties:/liquibase/liquibase.docker.properties' liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties update
