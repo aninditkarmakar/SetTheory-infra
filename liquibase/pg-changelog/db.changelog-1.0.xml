@@ -11,54 +11,66 @@
     </changeSet>
 
     <changeSet id="2" author="anindit">
-        <createTable tableName="Identity">
-            <column name="UserId" type="uuid">
+        <createTable tableName="identity">
+            <column name="user_id" type="uuid">
                 <constraints primaryKey="true" nullable="false" />
             </column>
 
-            <column name="ProviderId" type="varchar(50)">
+            <column name="provider_id" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="AuthProvider" type="smallint">
+            <column name="auth_provider" type="smallint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_at" type="datetime">
                 <constraints nullable="false" />
             </column>
         </createTable>
     </changeSet>
 
     <changeSet author="anindit" id="3">
-        <createTable tableName="User">
-            <column name="Id" type="uuid">
+        <createTable tableName="user">
+            <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false" />
             </column>
 
-            <column name="FirstName" type="varchar(30)">
+            <column name="first_name" type="varchar(30)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="LastName" type="varchar(50)" />
+            <column name="last_name" type="varchar(50)" />
 
-            <column name="Email" type="varchar(50)" />
+            <column name="email" type="varchar(50)" />
 
-            <column name="DateOfBirth" type="date" />
+            <column name="date_of_birth" type="date" />
+
+            <column name="created_at" type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="modified_at" type="datetime">
+                <constraints nullable="false" />
+            </column>
         </createTable>
     </changeSet>
 
     <changeSet id="4" author="anindit">
-        <addForeignKeyConstraint baseTableName="Identity" baseColumnNames="UserId" constraintName="Fk_Identity_User_UserId" referencedTableName="User" referencedColumnNames="Id" onDelete="CASCADE" />
+        <addForeignKeyConstraint baseTableName="identity" baseColumnNames="user_id" constraintName="fk_identity_user_user_id" referencedTableName="user" referencedColumnNames="id" onDelete="CASCADE" />
     </changeSet>
 
     <changeSet author="anindit" id="5">
-        <createIndex indexName="Idx_User_Email" tableName="User">
-            <column name="Email" />
+        <createIndex indexName="idx_user_email" tableName="user">
+            <column name="email" />
         </createIndex>
     </changeSet>
 
 
     <changeSet author="anindit" id="6">
-        <createIndex indexName="Idx_Identity_ProviderId_UserId" tableName="Identity">
-            <column name="ProviderId" />
-            <column name="UserId" />
+        <createIndex indexName="idx_identity_provider_id_user_id" tableName="identity">
+            <column name="provider_id" />
+            <column name="user_id" />
         </createIndex>
     </changeSet>
 
