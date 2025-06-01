@@ -12,8 +12,12 @@
 
     <changeSet id="2" author="anindit">
         <createTable tableName="identity">
+            <column name="id" type="uuid" defaultValueComputed="gen_random_uuid()">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
             <column name="user_id" type="uuid">
-                <constraints primaryKey="true" nullable="false" />
+                <constraints nullable="false" />
             </column>
 
             <column name="provider_id" type="varchar(50)">
@@ -24,7 +28,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="created_at" type="datetime">
+            <column name="created_at" type="timestamp" defaultValueComputed="now()">
                 <constraints nullable="false" />
             </column>
         </createTable>
@@ -32,7 +36,7 @@
 
     <changeSet author="anindit" id="3">
         <createTable tableName="user">
-            <column name="id" type="uuid">
+            <column name="id" type="uuid" defaultValueComputed="gen_random_uuid()">
                 <constraints primaryKey="true" nullable="false" />
             </column>
 
@@ -46,11 +50,11 @@
 
             <column name="date_of_birth" type="date" />
 
-            <column name="created_at" type="datetime">
+            <column name="created_at" type="timestamp" defaultValueComputed="now()">
                 <constraints nullable="false" />
             </column>
 
-            <column name="modified_at" type="datetime">
+            <column name="modified_at" type="timestamp" defaultValueComputed="now()">
                 <constraints nullable="false" />
             </column>
         </createTable>
@@ -72,6 +76,14 @@
             <column name="provider_id" />
             <column name="user_id" />
         </createIndex>
+    </changeSet>
+
+    <changeSet id="7" author="anindit">
+        <addDefaultValue tableName="identity" columnName="id" columnDataType="uuid" defaultValueComputed="gen_random_uuid()"/>
+    </changeSet>
+
+    <changeSet id="8" author="anindit">
+        <addDefaultValue tableName="user" columnName="id" columnDataType="uuid" defaultValueComputed="gen_random_uuid()"/>
     </changeSet>
 
 </databaseChangeLog>
