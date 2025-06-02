@@ -35,10 +35,10 @@ $PSNativeCommandArgumentPassing = 'legacy'
 And then run the necessary liquibase commands
 ```PowerShell
 # To apply changelog updates
-docker run --rm --network settheory_local_network --mount type=bind,source="$(pwd)"/pg-changelog,target=/liquibase/changelog --mount type=bind,source="$(pwd)"/liquibase.properties,target=/liquibase/liquibase.docker.properties liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties update
+docker run --rm --network settheory_local_network --mount type=bind,source="$(pwd)"/pg-changelog,target=/liquibase/changelog --mount type=bind,source="$(pwd)"/liquibase.local.properties,target=/liquibase/liquibase.docker.properties liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties update
 
 # To rollback update up to a specific tag
-docker run --rm --network settheory_local_network --mount type=bind,source="$(pwd)"/pg-changelog,target=/liquibase/changelog --mount type=bind,source="$(pwd)"/liquibase.properties,target=/liquibase/liquibase.docker.properties liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties rollback --tag=_epoch
+docker run --rm --network settheory_local_network --mount type=bind,source="$(pwd)"/pg-changelog,target=/liquibase/changelog --mount type=bind,source="$(pwd)"/liquibase.local.properties,target=/liquibase/liquibase.docker.properties liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties rollback --tag=_epoch
 ```
 
 **Linux / MacOS**
