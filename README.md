@@ -45,10 +45,10 @@ docker run --rm --network settheory_local_network --mount type=bind,source="$(pw
 
 ```bash
 # To apply changelog updates
-docker run --rm --network settheory_local_network -v './pg-changelog:/liquibase/changelog' -v './liquibase.properties:/liquibase/liquibase.docker.properties' liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties update
+docker run --rm --network settheory_local_network -v './pg-changelog:/liquibase/changelog' -v './liquibase.local.properties:/liquibase/liquibase.docker.properties' liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties update
 
 # To rollback update up to a specific tag
-docker run --rm --network settheory_local_network -v './pg-changelog:/liquibase/changelog' -v './liquibase.properties:/liquibase/liquibase.docker.properties' liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties rollback --tag=_epoch
+docker run --rm --network settheory_local_network -v './pg-changelog:/liquibase/changelog' -v './liquibase.local.properties:/liquibase/liquibase.docker.properties' liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties rollback --tag=_epoch
 ```
 
 ## Troubleshooting
