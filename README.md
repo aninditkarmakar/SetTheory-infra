@@ -23,6 +23,20 @@ To log in, enter -
 * Password: `<The PGADMIN_DEFAULT_PASSWORD in the postgres-db/compose.yaml file>`
 
 ## Liquibase
+### Decrypt liquibase properties file
+The following command was used to encrypt the liquibase properties file that points to the Neon sql endpoint:
+```bash
+openssl aes-256-cbc -pbkdf2 -salt -in liquibase.neon.dev.properties -out liquibase.neon.dev.properties.enc
+```
+
+To decrypt, run the command:
+```bash
+openssl aes-256-cbc -d -pbkdf2 -in liquibase.neon.dev.properties.enc -out liquibase.neon.dev.properties
+```
+
+Reach out to a team member for the encryption/decryption key.
+
+### Executing liquibase migrations
 Run these commands from the `liquibase` directory.
 
 **Windows**
@@ -35,20 +49,20 @@ $PSNativeCommandArgumentPassing = 'legacy'
 And then run the necessary liquibase commands
 ```PowerShell
 # To apply changelog updates
-docker run --rm --network settheory_local_network --mount type=bind,source="$(pwd)"/pg-changelog,target=/liquibase/changelog --mount type=bind,source="$(pwd)"/liquibase.local.properties,target=/liquibase/liquibase.docker.properties liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties update
+docker run --rm --network settheory_local_network --mount type=bind,source="$(pwd)"/pg-changelog,target=/liquibase/changelog --mount type=bind,source="$(pwd)"/liquibase.neon.dev.properties,target=/liquibase/liquibase.docker.properties liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties update
 
 # To rollback update up to a specific tag
-docker run --rm --network settheory_local_network --mount type=bind,source="$(pwd)"/pg-changelog,target=/liquibase/changelog --mount type=bind,source="$(pwd)"/liquibase.local.properties,target=/liquibase/liquibase.docker.properties liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties rollback --tag=_epoch
+docker run --rm --network settheory_local_network --mount type=bind,source="$(pwd)"/pg-changelog,target=/liquibase/changelog --mount type=bind,source="$(pwd)"/liquibase.neon.dev.properties,target=/liquibase/liquibase.docker.properties liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties rollback --tag=_epoch
 ```
 
 **Linux / MacOS**
 
 ```bash
 # To apply changelog updates
-docker run --rm --network settheory_local_network -v './pg-changelog:/liquibase/changelog' -v './liquibase.local.properties:/liquibase/liquibase.docker.properties' liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties update
+docker run --rm --network settheory_local_network -v './pg-changelog:/liquibase/changelog' -v './liquibase.neon.dev.properties:/liquibase/liquibase.docker.properties' liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties update
 
 # To rollback update up to a specific tag
-docker run --rm --network settheory_local_network -v './pg-changelog:/liquibase/changelog' -v './liquibase.local.properties:/liquibase/liquibase.docker.properties' liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties rollback --tag=_epoch
+docker run --rm --network settheory_local_network -v './pg-changelog:/liquibase/changelog' -v './liquibase.neon.dev.properties:/liquibase/liquibase.docker.properties' liquibase:4.32.0-alpine liquibase --defaults-file=/liquibase/liquibase.docker.properties rollback --tag=_epoch
 ```
 
 ## Troubleshooting
