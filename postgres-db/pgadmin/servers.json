@@ -13,11 +13,11 @@
             }
         },
         "2": {
-            "Name": "Hosted Server for Pipeline",
+            "Name": "Cloud Dev Server",
             "Group": "SetTheory",
             "Port": 5432,
             "Username": "neondb_owner",
-            "Host": "ep-rough-sea-aa3stsfd-pooler.westus3.azure.neon.tech",
+            "Host": "ep-gentle-cherry-aaf596as-pooler.westus3.azure.neon.tech",
             "MaintenanceDB": "postgres",
             "ConnectionParameters": {
                 "sslmode": "require",
