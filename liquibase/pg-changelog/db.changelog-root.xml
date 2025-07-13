@@ -11,5 +11,6 @@
         http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
 
 	<include file="db.changelog-1.0.xml"/>
+	<include file="db.changelog-1.1.xml"/>
 
 </databaseChangeLog>

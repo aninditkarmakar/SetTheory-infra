@@ -86,4 +86,8 @@
         <addDefaultValue tableName="user" columnName="id" columnDataType="uuid" defaultValueComputed="gen_random_uuid()"/>
     </changeSet>
 
+    <changeSet id="9" author="anindit">
+        <tagDatabase tag="tag_1.0" />
+    </changeSet>
+
 </databaseChangeLog>
